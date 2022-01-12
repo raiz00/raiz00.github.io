@@ -1,25 +1,34 @@
-const Option = ({handleAnswerOptionClick, answerOption, answered = false}) => {
-    const btnClass = {
+import {useEffect, useState} from "react";
+
+const Option = ({handleAnswerOptionClick, answerOption, isSelected, isSubmitting}) => {
+    const btnStyle = {
         normal: 'btn m-1 btn-primary',
         correct: 'btn m-1 btn-success',
         incorrect: 'btn m-1 btn-danger'
     }
-    console.log(answered)
 
-    const decideClassName = () => {
-        if(answered) {
-            return answerOption.isCorrect ? btnClass.correct : btnClass.incorrect
+    const [disabled, setDisabled] = useState(false);
+    const [btnClass, setBtnClass] = useState(btnStyle.normal);
+
+    useEffect(() => {
+        if (isSubmitting) {
+            setDisabled(true)
+            if (answerOption.isCorrect) {
+                setBtnClass(btnStyle.correct)
+            } else if (isSelected && !answerOption.isCorrect) {
+                setBtnClass(btnStyle.incorrect)
+            }
         } else {
-            return btnClass.normal
+            setDisabled(false)
+            setBtnClass(btnStyle.normal)
         }
-    }
-    console.log(decideClassName())
+    }, [isSubmitting]);
 
     return (
         <button
-            className={decideClassName()}
+            className={btnClass}
             onClick={handleAnswerOptionClick}
-            disabled={answered}>
+            disabled={disabled}>
             {answerOption.answerText}
         </button>
     )

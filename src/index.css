@@ -1,3 +1,7 @@
 button {
     width: 80%!important;
 }
+
+.question-image {
+    max-height: 500px;
+}

@@ -1,47 +1,31 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Nav} from "react-bootstrap";
+import {constant_string} from "../values";
 
-const Header = ({titlePage, titleBtn}) => {
+const Header = () => {
+    const navigate = useNavigate()
     return (
         <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <h1 className='visually-hidden'>{titlePage}</h1>
+            <h1 className='visually-hidden'>{constant_string.dog_quiz_label}</h1>
             <Link to="/" className="align-items-center mb-3 mb-md-0 me-auto text-dark text-decoration-none">
-                <span className="fs-4">{titlePage}</span>
+                <span className="fs-4">{constant_string.dog_quiz_label}</span>
             </Link>
 
-            <ul className="nav nav-pills">
-                <li className="nav-item">
-                    <Link to="/" className="nav-link active" aria-current="page">
-                        {titleBtn}
-                    </Link>
-                </li>
-            </ul>
+            <Nav
+                activeKey="/"
+                onSelect={(selectedKey) => {
+                    navigate(selectedKey)
+                }}
+            >
+                <Nav.Item>
+                    <Nav.Link eventKey="/">{constant_string.new_game_label}</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="/score">{constant_string.history_label}</Nav.Link>
+                </Nav.Item>
+            </Nav>
         </header>
     );
 };
 
-Header.defaultProps = {
-    titlePage: 'Dog Quiz',
-    titleBtn: 'New Game'
-}
-
 export default Header;
-
-
-// const Header = (props) => {
-//     return (
-//         <header>
-//             <h1>{props.title} Dog Quiz</h1>
-//         </header>
-//     );
-// };
-//
-// Header.defaultProps = {
-//     title: 'Dog Quiz'
-// }
-// import PropTypes from 'prop-types'
-//
-// Header.propTypes = {
-//     title: PropTypes.string.isRequired,
-// }
-//
-// export default Header;
