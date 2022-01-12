@@ -4,16 +4,14 @@ const Option = ({handleAnswerOptionClick, answerOption, answered = false}) => {
         correct: 'btn m-1 btn-success',
         incorrect: 'btn m-1 btn-danger'
     }
-    console.log(answered)
 
     const decideClassName = () => {
-        if(answered) {
+        if (answered) {
             return answerOption.isCorrect ? btnClass.correct : btnClass.incorrect
         } else {
             return btnClass.normal
         }
     }
-    console.log(decideClassName())
 
     return (
         <button
